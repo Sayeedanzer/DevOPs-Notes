@@ -1,0 +1,48 @@
+Branching
+--------------
+
+This feature is provided in git, so that developers can create code 
+related to different functionalities  on seprate branches.
+This helps the development team in creating the code in an uncluttered way.
+Later this code can be merged with master branch.
+Default branch of git is "Master"
+
+
+Developer
+
+Home Page   --  f1  f2   f3
+Services   --  f4  f5
+Contact US  --  f6  f7   f8
+
+branch
+
+
+
+
+
+git  init  --  master
+
++++++++++++++++++++++++++++++++++
+
+
+git branch  branchname 
+
+git  branch test
+
+to go to other branch command is
+
+git checkout <branchname>
+
+++++++++++++++
+git merge test
+
+git log --oneline
+
+git reset --hard HEAD~1
+
+
+If you have already pushed the merge to a remote repository, you should not use git reset because it will rewrite the history and cause problems for other collaborators. Instead, you can use the git revert command to create a new commit that reverses the effects of the merge. For example, if you want to undo the last merge, you can run:
+
+git revert -m 1 <merge-commit-hash>
+
+$ nano .gitignore

@@ -1,0 +1,51 @@
+Using Git with Command Line
+To start using Git, we are first going to open up our Command shell.
+
+For Windows, you can use Git bash, which comes included in Git for Windows. For Mac and Linux you can use the built-in terminal.
+
+The first thing we need to do, is to check if Git is properly installed:
+
+Example
+git --version
+git version 2.30.2.windows.1
+
+Configure Git
+Now let Git know who you are. This is important for version control systems, as each Git commit uses this information:
+
+Example
+git config --global user.name "xyz"
+git config --global user.email "xyz@gmail.com"
+Change the user name and e-mail address to your own. You will probably also want to use this when registering to GitHub later on.
+
+Initialize Git
+Once you have navigated to the correct folder, you can initialize Git on that folder:
+
+Example
+git init 
+Initialized empty Git repository in /Users/user/myproject/.git/
+
+Git Adding New Files
+You just created your first local Git repo. But it is empty.
+
+So let's add some files, or create a new file using your favourite text editor. Then save or move it to the folder you just created.
+ls will list the files in the directory. We can see that index.html is there.
+
+Then we check the Git status and see if it is a part of our repo:
+
+git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add ..." to include in what will be committed)
+    index.html
+
+nothing added to commit but untracked files present (use "git add" to track)
+Now Git is aware of the file, but has not added it to our repository!
+
+Files in your Git repository folder can be in one of 2 states:
+
+Tracked - files that Git knows about and are added to the repository
+Untracked - files that are in your working directory, but not added to the repository
+ When you first add files to an empty repository, they are all untracked. To get Git to track them, you need to stage them, or add them to the staging environment.

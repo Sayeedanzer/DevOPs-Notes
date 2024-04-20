@@ -1,0 +1,228 @@
+Nagios
+---------------------
+It is a monitoring tool.
+CPU Utilization, RAM utilization,  Network band width
+
+Create two AWS instances.
+1st machine -- install nagios
+2nd machine -- remote server which will be monitored.
+
+In step 6:   Add  security group
+Add 3 rules
+   -- Custom TCP			--  Anywhere
+   --  HTTP			--  Anywhere
+   --  All ICMP V4		--  Anywhere
+
+	
+1st machine  name it as --  nagios_server
+2nd machine name it as  - server1
+
+-------
+Installation of nagios
+---------------------------
+Open gitbash  connect to  1st server  ( nagios_server) 
+
+
+$ sudo  apt update
+
+
+$ sudo apt install nagios4
+
+
+OK --- OK  --  System mail name:  ( Just OK ) 
+Nagios administration password - sunil
+
+To check nagios is installed or not?
+
+Go to the AWS machine
+select the public DNS 
+
+ec2-13-233-253-72.ap-south-1.compute.amazonaws.com/nagios3
+
+ec2-13-234-78-127.ap-south-1.compute.amazonaws.com/nagios3
+
+
+
+default username - nagiosadmin
+password - sami
+------------------------------------
+
+select services
+currently , we find only  localhost
+
+-----------------
+TO add remote servers  to Nagios
+
+Go to gitbash
+
+$ sudo  vi  /etc/nagios3/nagios.cfg
+check_external_command= 1       ( line 145 )
+
+:wq
+
+$ sudo   vi   /etc/group
+nagios:x:119:www.data             ( line 58 )
+
+
+
+
+$ sudo chmod  g+w  /var/lib/nagios3/rw
+$ sudo chmod  g+w  /var/lib/nagios3
+
+$ sudo service apache2 restart
+$ sudo service nagios3 restart
+
+
+++++++++++++++++++++++++
+
+
+
+
+Configuring remote serves on nagios
+
+$ cd  /etc/nagios3/conf.d/
+$  ls    ( we can see the configuration files )
+
+create a new file
+$ sudo  vim  server1.cfg
+
+( In google  -  adding server to nagios  urban penguin)
+URL --  https://www.theurbanpenguin.com/nagios-defining-a-new-host/
+
+
+
+define host {
+  host_name store.tup.local
+  alias store
+  address 192.168.0.8
+  max_check_attempts 3
+  check_period 24x7
+  check_command check-host-alive
+  contacts root
+  notification_interval 60
+  notification_period 24x7
+}
+
+change -- host_name , alias   , address ( private_ip )
+
+define host {
+  host_name ec2-3-111-218-109.ap-south-1.compute.amazonaws.com
+  alias nagios-slave
+  address 172.31.34.70
+  max_check_attempts 3
+  check_period 24x7
+  check_command check-host-alive
+  contacts root
+  notification_interval 60
+  notification_period 24x7
+}
+
+/usr/local/nagios4/bin/nagios -v /usr/local/nagios4/etc/nagios.cfg
+Restart nagios3
+$ sudo   /etc/init.d/nagios3  restart
+
+define host {
+
+    name                            linux-server            ; The name of this host template
+    use                             generic-host            ; This template inherits other valu>
+    check_period                    24x7                    ; By default, Linux hosts are check>
+    check_interval                  5                       ; Actively check the host every 5 m>
+    retry_interval                  1                       ; Schedule host check retries at 1 >
+    max_check_attempts              10                      ; Check each Linux host 10 times (m>
+    check_command                   check-host-alive        ; Default command to check Linux ho>
+    notification_period             workhours               ; Linux admins hate to be woken up,>
+                                                            ; Note that the notification_period>
+                                                            ; the value that is inherited from >
+    notification_interval           120                     ; Resend notifications every 2 hours
+    notification_options            d,u,r                   ; Only send notifications for speci>
+    contact_groups                  admins                  ; Notifications get sent to the adm>
+    register                        0                       ; DON'T REGISTER THIS DEFINITION - >
+}
+define host {
+	
+    use                     linux-server            
+    host_name               ec2-3-110-173-82.ap-south-1.compute.amazonaws.com
+    alias                   nagios-client
+    address                 172.31.35.65
+	max_check_attempts 		3
+  check_period 				24x7
+  check_command 			check-host-alive
+  contacts 					root
+  notification_interval 	60
+  notification_period 	24x7
+}
+
+
+
+
+
+
+
+
+Go to nagios home page  and refresh
+select host groups
+We can see the new host.
+
++++++++++++++++++++++
+
+
+
+Kubernetes
+------------------------
+Kubernetes is a container orchestration tool.
+Docker swarm is a container orchestration tool
+Google created this kubernetes.
+It is a opensource tool.
+Pre-requisite is docker.
+
+k8s  -- 8 letters between  k  and  s
+
+It is a container orchestration tool.
+ 
+Kubernetes creates cluster, deploy and manage clusters.
+
+By using kubernetes we form a cluster
+K8S schedules, runs and managers isolated containers.
+
+Convert isolated containers running on different hardwares into a cluster.
+
+In AWS we have a service EKS  ( Elastic kubernetes service )
+
+Features of kubernetes
+---------------------------------
+1) Orchestration (  clustering any no of containers on different hardwares)
+2) Auto scaling
+3) Auto healing ( new containers in place of crashed containers 
+                              similar to handling failover scenarios in docker swarm )
+4) load balancing
+5) rollback  ( going to previous versions )
+
+
+Kubernetes Architecture
+-------------------------------
+
+Cluster is combination of 1 master and multiple nodes.
+
+Pod is atomic unit of deployment in kubernetes.
+
+Pod consists of one or more docker containers.
+Pod runs on node.
+Node is controlled by Kubernetes master
+
+Kubernetes does not understand containers.
+
+Kubernetes can understand only pods.
+
+In this diagram , we have one master and one node.
+node is also called minion.
+Kubernetes master is also called as control plane.
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+

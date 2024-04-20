@@ -1,0 +1,136 @@
+
+How to selectively pickup the commit's from child branch ( Cherry-pick )
+
+$ git  cherry-pick   0d2751c    e4ec875     ( commit id's)
+
+0d2751c serv2
++++++++++++++++++++++
+
+Git Ammend
+----------------
+
+$ git commit  --amend  -m "a"
+
+
+How to go back to previous version of code
+----------------------------------------------
+git reset --hard 8761a04
+
+
+git show --pretty="" --name-only 8761a04 
+
+----------
+git stash
+----------
+
+The git stash command is a useful way to temporarily save your local changes 
+and revert to a clean working directory. You can use this command when you want
+to switch branches, pull new changes, or work on something else without 
+committing your current work. The git stash command has several subcommands 
+that allow you to create, list, show, apply, pop, drop, branch, clear, create, and store stashes.
+Here is a brief overview of each subcommand:
+
+git stash push creates a new stash entry from your modified files and stages, 
+and optionally takes a message to describe the stash. You can also use git 
+stash without any arguments as a shortcut for git stash push.
+git stash list shows a list of all the stashes you have created, with the most
+recent one at the top. You can use git log options to customize the output format.
+git stash apply reapplies the changes stored in a stash entry to your working 
+directory and stages, without deleting the stash entry. 
+You can use the --index option to try to recreate the staged changes as well.
+git stash pop is similar to git stash apply, but it also deletes the stash 
+entry after applying it. This is useful if you want to resume your work from 
+where you left off.
+
+
+The git remote add command is used to add a new remote connection to your 
+local Git repository. A remote is a reference to another repository that 
+you can fetch from or push to. 
+You can specify a name and a URL for the remote, and then use the name to 
+refer to it in other commands. 
+For example, if you want to add a remote named origin that points to 
+https://github.com/user/repo.git, you can use this command:
+git remote add origin https://github.com/user/repo.git
+You can verify that the remote was added successfully by using the 
+git remote -v command, which will show you the remote name and URL.
+
+-----------
+git push
+-----------
+
+Git push is a command that uploads your local branch commits to the corresponding 
+remote branch. It is one of the four commands in Git that prompts interaction with the remote repository.
+You can also think of git push as update or publish. By default, git push only updates the branch that has 
+the same name as the remote branch. For example, if you are on the main branch when you execute git push, 
+then only the main branch will be updated.
+
+Push a new branch and create an upstream tracking branch with a lasting 
+relationship to your local branch. This can be done with the -u option, 
+followed by the remote name and the branch name. 
+For example: git push -u origin new-branch.
+---------------
+Git pull
+---------------
+The git pull command is used to fetch and download content from a remote
+repository and immediately update the local repository to match that content.
+Merging remote upstream changes into your local repository is a common task in
+Git-based collaboration work flows. The git pull command is actually a 
+combination of two other commands, git fetch followed by git merge. 
+In the first stage of operation git pull will execute a git fetch scoped to 
+the local branch that HEAD is pointed at. Once the content is downloaded, 
+git pull will enter a merge workflow. A new merge commit will be-created and
+HEAD updated to point at the new commit.
+
+git pull origin master
+
+---------------
+Git fetch
+---------------
+The git fetch command is used to download the latest changes from a remote 
+repository into your local repository. It does not merge the changes into your
+working directory, but it does update the remote-tracking branches. 
+This means that you can then use the git merge command to integrate the 
+changes into your working directory.
+
+To use the git fetch command, you will need to specify the name of the remote 
+repository. You can find this name in the git config --list remotes output. 
+For example, to fetch changes from the remote repository named origin, you would use the following command:
+
+git fetch origin
+
+Here is an example of how to use the git fetch and git merge commands to update your local repository:
+
+git fetch origin
+git merge origin master
+
+ git status
+On branch master
+Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+
+----------
+git push
+---------
+
+The git push command is used to synchronize changes from your local Git repository to a remote repository. It is a crucial part of the Git workflow, allowing you to share your code with others and make sure that everyone is working on the same codebase.
+
+The basic syntax of the git push command is:
+
+git push <remote-name> <branch-name>
+For example, to push your local master branch to a remote repository named origin, you would use the following command:
+
+git push origin master
+If you have already pushed your local branch to the remote repository, you can use the -f flag to force a new push, even if the remote branch has already been updated. This can be useful if you want to overwrite someone else's changes.
+
+git push -f origin master
+You can also use the :all refspec to push all of your local branches to the remote repository. This is not recommended for production environments, as it can overwrite someone else's changes without your knowledge.
+
+git push origin :all
+Here are some additional options for the git push command:
+
+--all - Pushes all local branches to the remote repository.
+--force - Forces a push, even if the remote branch has already been updated.
+--tags - Pushes all local tags to the remote repository.
+--set-upstream - Sets the upstream remote for the specified branch to the specified remote.

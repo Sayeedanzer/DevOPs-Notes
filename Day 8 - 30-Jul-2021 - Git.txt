@@ -1,0 +1,53 @@
+
+
+
+Git  rebase
+==============
+This is called as fastforward merge.
+The commits from the child branch are added to the top of the master branch.
+This is helpful when we want code from a branch to be reflected as the latest working version on master.
+
+git rebase master (note from the child branch you have to rebase the master branch)
+git checkout master
+git merge test
+
+(rebase is not alternative to merge)
+
+now do git log --oneline
+
+Rearrange the commit order
+---------------------------
+let say this is a master branch with some commits(a,b,c,d,e)
+when you do git log you will get commits and head is pointig
+to latest commit
+notes:- we cannot change the order of the first commit
+git rebase -i HEAD~4
+
+
+Merge the commit's using "squash"
+--------------------------------
+git rebase -i HEAD~4
+Remove the pick word and replace it with squash
+
+------------------
+
+How to selectively pickup the commit's from child branch ( Cherry-pick )
+
+$ git  cherry-pick   702daee         ( commit id's)
+
+0d2751c serv2
++++++++++++++++++++++
+
+Git Ammend
+----------------
+
+$ git commit  --amend  -m "a"
+
+
+How to go back to previous version of code
+----------------------------------------------
+git reset --hard 8761a04
+
+
+git show --pretty="" --name-only 8761a04 
+

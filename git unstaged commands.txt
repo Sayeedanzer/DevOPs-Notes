@@ -1,0 +1,18 @@
+Common Unstaging Commands:
+
+Here are the three primary commands used for unstaging files in Git, along with their purposes:
+
+git restore --staged <file>
+
+Removes the file from the staging area, preserving your local changes in the working directory. This is the recommended and safer approach as it doesn't affect the file's history in the Git repository.
+git reset HEAD <file>
+
+Similar to git restore, but only unstages the changes made to the file since the last commit, leaving it with the state at the last commit's point. Use this cautiously as it permanently discards any uncommitted changes you made after the last commit.
+git rm --cached <file> (Use with caution)
+
+Removes the file from both the staging area and the Git repository's tracking, essentially untracking the file. Be extremely careful with this as it's permanent and cannot be undone. Use it only if you're sure you no longer need the file in the repository.
+Choosing the Right Command:
+
+If you simply want to exclude a staged file from the next commit without losing your changes, use git restore --staged.
+If you want to revert a file to its last committed state and remove any uncommitted changes, use git reset HEAD with caution.
+Avoid using git rm --cached unless you're absolutely certain you want to untrack and permanently remove the file from the repository.
